@@ -1,0 +1,20 @@
+{
+"name": "Max",
+"children": [
+    {
+        "name": "Silvia",
+        "children": [
+            {"name": "Craig", "option1": "some info"},
+            {"name": "Robin"},
+            {"name": "Ana"}                 
+        ]
+    },
+    {
+        "name": "David",
+        "children": [
+            {"name": "Jeff"},
+            {"name": "Buffy"}                 
+        ]
+    }
+]
+}
