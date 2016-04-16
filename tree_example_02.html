@@ -3,6 +3,9 @@
 <head>
     <title>D3js test</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="js\jsPDF.debug.js"></script>
+    <script src="js\saveSvgAsPng.js"></script>
+    <script src="js\svg_to_pdf.js"></script>
     
     <style>
         .node text {
@@ -23,6 +26,7 @@
         
     //Reference
     //http://tutorials.jenkov.com/svg/rect-element.html
+    //http://www.ultrasaurus.com/2012/03/d3-js-experiments-in-the-console/
     
 
     //https://www.youtube.com/watch?v=x8dwXoWODZ4
@@ -80,44 +84,48 @@
             .attr("r", 5)
             .attr("fill", "steelblue");
 
-        //Appending the text            
-        node.append("text")
-            //.attr("class", "info")
-            // .attr("x", "15px")
-            // .attr("dy", "-15px")
-            .attr("x", 15)
-            .attr("y", -15)            
-            //.attr("textLength", 140)
-            .text(function(d) {
-                //return d.name + (d.option1 ? String.fromCharCode(13) + d.option1 : " - no");
-                return d.name;
-                //return this.append("tspan").text("tspaaaan");
-            }).append("tspan")
-                .attr("x", "15px")
-                .attr("y", 10)
-                .text("tspaaaan");                    
+        function appendText(n) {
+            var rootobj = n.append("text")
+                            .attr("x", 15)
+                            .attr("y", -15)            
+                            .text(function(d) {                                
+                                return d.name;
+                            })                                
+                
+                rootobj.append("tspan")
+                    .attr("x", "15px")
+                    .attr("y", 10)
+                    .text(function(d) {
+                        return (d.option1 ? d.option1 : "");
+                    });
+        };
         
-        node.append("rect")
-            .attr("ry", 6)
-            .attr("rx", 6)
-            .attr("y", -10)
-            .attr("height", 20)
+        appendText(node);
+        //Appending the text            
+        // node.append("text")
+        //     .attr("x", 15)
+        //     .attr("y", -15)            
+        //     .text(function(d) {
+        //         //return d.name + (d.option1 ? String.fromCharCode(13) + d.option1 : " - no");
+        //         return d.name;
+        //         //return this.append("tspan").text("tspaaaan");
+        //     }).append("tspan")
+        //         .attr("x", "15px")
+        //         .attr("y", 10)
+        //         .text("tspaaaan");
+        
+        // //TODO: add rectangle
+        // node.append("rect")
+        //     .attr("ry", 6)
+        //     .attr("rx", 6)
+        //     .attr("y", -10)
+        //     .attr("height", 20);
+            
         /*
         //This gives name on hover 
         node.append("title")
             .text(function(d) { return d.name; });
-        */
-        
-        /*
-        node.insert("rect", "text")
-            .attr("ry", 6)
-            .attr("rx", 6)
-            .attr("y", -10)
-            .attr("height", 20)
-            .attr("width", function(d) { return d.width; })
-            .filter(function(d) { return d.flipped; })
-            .attr("x", function(d) { return -d.width; });
-        */
+        */       
         
         //Adding the lines using the links (source/target)            
         var diagonal = d3.svg.diagonal()
@@ -138,5 +146,15 @@
     })       
     
     </script>
+    
+    <p><button>Save as PDF</button></p>
+    
+    <script>
+        document.querySelector("button").addEventListener("click", function () {
+            svg_to_pdf(document.querySelector("svg"), function (pdf) {
+                download_pdf('SVG.pdf', pdf.output('dataurlstring'));
+            });
+        });
+    </script>    
 </body>
 </html>

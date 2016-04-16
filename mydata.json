@@ -5,15 +5,23 @@
         "name": "Silvia",
         "children": [
             {"name": "Craig", "option1": "some info"},
-            {"name": "Robin"},
-            {"name": "Ana"}                 
+            {"name": "Robin", "children": [
+                {"name": "Craig"},
+                {"name": "Robin"},
+                {"name": "Ana"} 
+            ]},            
+            {"name": "Ana", "children": [
+                {"name": "Craig"},
+                {"name": "Robin"},
+                {"name": "Ana"} 
+            ]}                 
         ]
     },
     {
         "name": "David",
         "children": [
             {"name": "Jeff"},
-            {"name": "Buffy"}                 
+            {"name": "Buffy", "option1": "other info"}                 
         ]
     }
 ]
